@@ -13,9 +13,9 @@ app.use(express.json());
 app.use('/exercise', routeExercise);
 app.use('/user', routeUser);
 
-app.get('/',(req,res) => {
-    res.send('This is home!!!');
-});
+// app.get('/',(req,res) => {
+//     res.send('This is home!!!');
+// });
 
 
 //connect to db
