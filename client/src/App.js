@@ -14,12 +14,14 @@ function App(){
             <div>
                 <Navbar />
                 <br />
+                <div className="container">
                 <Switch>
                     <Route path='/' exact component={ExerciseList} />
                     <Route path='/edit/:id' component={EditExercise} />
                     <Route path='/create' component={CreateExercise} />
                     <Route path='/user' component={CreateUser} />
                 </Switch>
+                </div>
             </div>    
         </Router>
     );
