@@ -22,7 +22,7 @@ class EditExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/exercise/'+ this.props.match.params.id).then(res => //console.log(res.data))
+        axios.get('/exercise/'+ this.props.match.params.id).then(res => //console.log(res.data))
                     this.setState({
                         username: res.data.username,
                         description: res.data.description,
@@ -31,7 +31,7 @@ class EditExercise extends React.Component{
 
                     })).catch(err => console.log(err));
 
-        axios.get('http://localhost:5000/user').then(response => {
+        axios.get('/user').then(response => {
                    if(response.data.length > 0){
                         this.setState({
                             user: response.data.map(u => u.username)
@@ -64,7 +64,7 @@ class EditExercise extends React.Component{
             date: this.state.date
         };
         console.log(exercise);
-        axios.patch('http://localhost:5000/exercise/update/'+ this.props.match.params.id, exercise).then(response => {
+        axios.patch('/exercise/update/'+ this.props.match.params.id, exercise).then(response => {
                     console.log(response.data);
                     this.setState({
                         isEdit: true  

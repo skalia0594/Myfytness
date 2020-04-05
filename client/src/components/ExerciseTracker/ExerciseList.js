@@ -11,14 +11,14 @@ class ExerciseList extends React.Component{
         this.deleteExercise = this.deleteExercise.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/exercise').then(res => 
+        axios.get('/exercise').then(res => 
                 this.setState({
                     exercises : res.data,
                     isLoading : false
                 })).catch(err => console.log(err));
     }
     deleteExercise(id){
-        axios.delete('http://localhost:5000/exercise/delete/' + id).then(res => 
+        axios.delete('/exercise/delete/' + id).then(res => 
                     console.log(res));
         this.setState({
             exercises: this.state.exercises.filter(x => x._id !== id)

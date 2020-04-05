@@ -22,7 +22,7 @@ class CreateExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:'+process.env.PORT +'/user').then(response => {
+        axios.get('/user').then(response => {
                    if(response.data.length > 0){
                         this.setState({
                             user: response.data.map(u => u.username)
@@ -55,7 +55,7 @@ class CreateExercise extends React.Component{
             date: this.state.date
         };
         console.log(exercise);
-        axios.post('http://localhost:'+process.env.PORT +'/exercise/add', exercise).then(response => {
+        axios.post('/exercise/add', exercise).then(response => {
             console.log(response.data);
             this.setState({
                 isSubmit: true  
