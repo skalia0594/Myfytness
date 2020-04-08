@@ -3,15 +3,14 @@ import {Redirect} from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
-// import { response } from 'express'
-
+import Navbar from './Navbar'
 class CreateExercise extends React.Component{
     constructor(props){
         super(props);
         this.state={
             username: '',
             description: '',
-            duration: 0 ,
+            duration: '' ,
             date: new Date(),
             user : [],
             isSubmit: false
@@ -22,7 +21,10 @@ class CreateExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('/user').then(response => {
+        console.log('Aoyh-----token:'+ sessionStorage.getItem('auth-token'));
+        axios.get('http://localhost:5050/user',{
+            headers: {Authorization: sessionStorage.getItem('auth-token')}
+        }).then(response => {
                    if(response.data.length > 0){
                         this.setState({
                             user: response.data.map(u => u.username)
@@ -55,7 +57,7 @@ class CreateExercise extends React.Component{
             date: this.state.date
         };
         console.log(exercise);
-        axios.post('/exercise/add', exercise).then(response => {
+        axios.post('http://localhost:5050/exercise/add', exercise).then(response => {
             console.log(response.data);
             this.setState({
                 isSubmit: true  
@@ -66,6 +68,8 @@ class CreateExercise extends React.Component{
     render(){
         if (this.state.isSubmit) return <Redirect to='/' />;
         return(
+            <div>
+            <Navbar /> <br />
             <form onSubmit={this.handleSubmit}>  
                 <h2>Create Exercise Log</h2>
                 <div className="form-group">
@@ -91,6 +95,7 @@ class CreateExercise extends React.Component{
                     <button className='btn btn-primary'>Create!</button>
                 </div>
             </form>
+            </div>
         );
     }
 }

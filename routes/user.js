@@ -19,11 +19,11 @@ router.post('/add', async (req, res) => {
 
     //Validate through JOI
     const {error} = userValidations(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).json({message:error.details[0].message});
 
     //validate Duplicate email
     const emailID = await User.findOne({email : req.body.email});
-    if(emailID) return res.status(400).send('Email already exists.');
+    if(emailID) return res.status(400).json({message:'Email already exists.'});
 
     //hash password
     const salt= await bcrypt.genSalt(10);
@@ -56,7 +56,7 @@ router.post('/login', async (req,res) => {
 
     
     const token = jsonWebToken.sign({_id : user._id},process.env.SECRET_TOKEN);
-    res.header({'auth-token': token}).send(token);
+    res.send(token);
 
     // res.send('Logged In!');
 })

@@ -3,8 +3,7 @@ import {Redirect} from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
-// import { response } from 'express'
-
+import Navbar from './Navbar'
 class EditExercise extends React.Component{
     constructor(props){
         super(props);
@@ -22,7 +21,7 @@ class EditExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('/exercise/'+ this.props.match.params.id).then(res => //console.log(res.data))
+        axios.get('http://localhost:5050/exercise/'+ this.props.match.params.id).then(res => //console.log(res.data))
                     this.setState({
                         username: res.data.username,
                         description: res.data.description,
@@ -31,7 +30,7 @@ class EditExercise extends React.Component{
 
                     })).catch(err => console.log(err));
 
-        axios.get('/user').then(response => {
+        axios.get('http://localhost:5050/user').then(response => {
                    if(response.data.length > 0){
                         this.setState({
                             user: response.data.map(u => u.username)
@@ -64,7 +63,7 @@ class EditExercise extends React.Component{
             date: this.state.date
         };
         console.log(exercise);
-        axios.patch('/exercise/update/'+ this.props.match.params.id, exercise).then(response => {
+        axios.patch('http://localhost:5050/exercise/update/'+ this.props.match.params.id, exercise).then(response => {
                     console.log(response.data);
                     this.setState({
                         isEdit: true  
@@ -75,6 +74,8 @@ class EditExercise extends React.Component{
     render(){
         if (this.state.isEdit) return <Redirect to='/' />;
         return(
+            <div>
+            <Navbar /> <br />
             <form onSubmit={this.handleSubmit}>  
                 <h2>Edit Exercise Log</h2>
                 <div className="form-group">
@@ -100,6 +101,7 @@ class EditExercise extends React.Component{
                     <button className='btn btn-primary'>Edit!</button>
                 </div>
             </form>
+            </div>
         );
     }
 }

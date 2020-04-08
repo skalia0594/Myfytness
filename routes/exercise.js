@@ -1,8 +1,10 @@
 const express = require('express');
 const Exercise = require('../models/Exercise');
 const router = express.Router();
+const verifyToken = require('./verifyToken');
 
-router.get('/', async (req, res) => {
+
+router.get('/', verifyToken, async (req, res) => {
     try{
         const allExercise = await Exercise.find();
         res.json(allExercise);

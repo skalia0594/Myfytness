@@ -4,14 +4,16 @@ const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
 require('dotenv/config');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5050;
 const routeExercise = require('./routes/exercise');
 const routeUser = require('./routes/user');
+const routeNavbar = require('./routes/navbar');
 
 app.use(cors());
 app.use(express.json());
 app.use('/exercise', routeExercise);
 app.use('/user', routeUser);
+app.use('/navbar', routeNavbar);
 
 // app.get('/',(req,res) => {
 //     res.send('This is home!!!');
@@ -19,7 +21,7 @@ app.use('/user', routeUser);
 
 
 //connect to db
-mongoose.connect(process.env.MONGODB_URI || process.env.DB_CONNECTION , { useNewUrlParser: true, useUnifiedTopology: true } , () => 
+mongoose.connect( process.env.DB_CONNECTION , { useNewUrlParser: true, useUnifiedTopology: true } , () => 
                     console.log('Connected to DataBase'));
 
 

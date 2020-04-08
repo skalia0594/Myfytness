@@ -1,9 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import Exercise from './Exercise'
+import Navbar from './Navbar'
 class ExerciseList extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             exercises: [],
             isLoading: true
@@ -11,14 +12,16 @@ class ExerciseList extends React.Component{
         this.deleteExercise = this.deleteExercise.bind(this);
     }
     componentDidMount(){
-        axios.get('/exercise').then(res => 
+        axios.get('http://localhost:5050/exercise',{
+            headers: {Authorization: sessionStorage.getItem('auth-token')}
+        }).then(res => 
                 this.setState({
                     exercises : res.data,
                     isLoading : false
                 })).catch(err => console.log(err));
     }
     deleteExercise(id){
-        axios.delete('/exercise/delete/' + id).then(res => 
+        axios.delete('http://localhost:5050/exercise/delete/' + id).then(res => 
                     console.log(res));
         this.setState({
             exercises: this.state.exercises.filter(x => x._id !== id)
@@ -31,6 +34,7 @@ class ExerciseList extends React.Component{
     render(){
         return(
             <div>
+                <Navbar /> <br />
                 <h2>Logged Exercises</h2> 
             <table className="table"> 
             <thead className="thead-light">  
