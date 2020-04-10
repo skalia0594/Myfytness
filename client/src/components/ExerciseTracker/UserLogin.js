@@ -55,7 +55,7 @@ class UserLogin extends React.Component{
             
             <form onSubmit={this.handleSubmit} className='form-horizontal'>  
             <h2>Login</h2> <br />
-            <p style={{width: '40%' ,marginLeft: '350px',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+            <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
             <div className="form-group">
                 <label className="control-label" htmlFor="email">Email: </label>
                 <input type='email' required className='form-control' id='email' name='email' value={this.state.email} onChange={this.handleChange}/>

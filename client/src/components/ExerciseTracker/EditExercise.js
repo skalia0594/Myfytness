@@ -90,7 +90,7 @@ class EditExercise extends React.Component{
         return(
             <div>
             <Navbar /> <br />
-            <p style={{width: '40%' ,marginLeft: '350px',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+            <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
            
             <form onSubmit={this.handleSubmit}>  
                 <h2>Edit Exercise Log</h2>

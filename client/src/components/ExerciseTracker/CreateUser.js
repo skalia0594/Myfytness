@@ -70,7 +70,7 @@ class CreateUser extends React.Component{
         return(
             <div>
             <Navbar signOut={this.logout}/> <br />
-            <p style={{width: '40%' ,marginLeft: '350px',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+            <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
            
             <form onSubmit={this.handleSubmit}>  
             <h2>Create User</h2>
