@@ -13,14 +13,14 @@ class ExerciseList extends React.Component{
         this.deleteExercise = this.deleteExercise.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:5050/user' ,{
+        axios.get('/user' ,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
                         this.setState({
                             currentUser: response.data._id
                         });
 
-        axios.get('http://localhost:5050/exercise',{
+        axios.get('/exercise',{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(res => 
                 this.setState({
@@ -32,7 +32,7 @@ class ExerciseList extends React.Component{
         })
     }
     deleteExercise(id){
-        axios.delete('http://localhost:5050/exercise/delete/' + id,{
+        axios.delete('/exercise/delete/' + id,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(res => 
                     console.log(res));

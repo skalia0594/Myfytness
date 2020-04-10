@@ -23,7 +23,7 @@ class CreateExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:5050/user' ,{
+        axios.get('/user' ,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
                         this.setState({
@@ -61,7 +61,7 @@ class CreateExercise extends React.Component{
             user_id: this.state.userId
         };
         console.log(exercise);
-        axios.post('http://localhost:5050/exercise/add', exercise,{
+        axios.post('/exercise/add', exercise,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
             console.log(response.data);

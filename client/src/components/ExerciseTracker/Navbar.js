@@ -15,7 +15,7 @@ class Navbar extends React.Component{
     }
     componentDidMount(){
         if(!this.signOut){
-            axios.get('http://localhost:5050/user',{
+            axios.get('/user',{
                 headers: {Authorization: sessionStorage.getItem('auth-token')}
             }).then(res => {
                 console.log(res.data);

@@ -34,7 +34,7 @@ class CreateUser extends React.Component{
             password: this.state.password
         };
         // console.log(user);
-        axios.post('http://localhost:5050/user/add', user).then(res => {
+        axios.post('/user/add', user).then(res => {
             if(res.data) console.log(res.data)
             this.setState({ 
                 isUserCreated: true
@@ -50,7 +50,7 @@ class CreateUser extends React.Component{
             email: this.state.email,
             password: this.state.password
         };
-        axios.post('http://localhost:5050/user/login', user).then(res => {
+        axios.post('/user/login', user).then(res => {
             console.log(res.data);
             sessionStorage.setItem('auth-token',res.data);   
             this.setState({

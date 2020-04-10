@@ -23,7 +23,7 @@ class EditExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        axios.get('http://localhost:5050/exercise/'+ this.props.match.params.id,{
+        axios.get('/exercise/'+ this.props.match.params.id,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(res => //console.log(res.data))
                     this.setState({
@@ -73,7 +73,7 @@ class EditExercise extends React.Component{
             user_id: this.state.userId
         };
         console.log(exercise);
-        axios.patch('http://localhost:5050/exercise/update/'+ this.props.match.params.id, exercise, {
+        axios.patch('/exercise/update/'+ this.props.match.params.id, exercise, {
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
                     console.log(response.data);

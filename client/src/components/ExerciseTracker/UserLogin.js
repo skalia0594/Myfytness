@@ -31,7 +31,7 @@ class UserLogin extends React.Component{
             password: this.state.password
         };
         // console.log(user);
-        axios.post('http://localhost:5050/user/login', user).then(res => {
+        axios.post('/user/login', user).then(res => {
             console.log(res.data);
             sessionStorage.setItem('auth-token',res.data);
             this.setState({
