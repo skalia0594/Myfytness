@@ -6,7 +6,8 @@ class Navbar extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            session : false
+            session : false,
+            username: ''
         }
         this.signOut = props.signOut;
         this.token = sessionStorage.getItem('auth-token');
@@ -14,12 +15,13 @@ class Navbar extends React.Component{
     }
     componentDidMount(){
         if(!this.signOut){
-            axios.get('http://localhost:5050/navbar',{
+            axios.get('http://localhost:5050/user',{
                 headers: {Authorization: sessionStorage.getItem('auth-token')}
             }).then(res => {
                 console.log(res.data);
                 this.setState({ 
-                    session: true 
+                    session: true ,
+                    username : res.data.username
                 });
             }).catch(e => {
                 if(null !== e.response)
@@ -43,9 +45,11 @@ class Navbar extends React.Component{
                      <ul className="navbar-nav">
                      
                        { this.state.session && <li className="nav-item"><Link className="nav-link" to="/exercises">Excercises</Link></li>}
-                       { this.state.session && <li className="nav-item"><Link className="nav-link" to="/create">Create Exercise Log</Link></li>}
+                       { this.state.session && <li className="nav-item"><Link className="nav-link" to="/create">Create Exercise</Link></li>}
                        { this.state.session && <li className="nav-item" onClick={this.logOut}><Link className="nav-link" to="/">Sign Out</Link></li>}
                      </ul>
+                     { this.state.session && <div style={{marginLeft: 'auto', color: '#fff'}}>Welcome {this.state.username}</div> }
+                 
                  </div>
              </nav>
          );

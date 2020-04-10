@@ -7,11 +7,19 @@ class ExerciseList extends React.Component{
         super(props);
         this.state={
             exercises: [],
+            currentUser: '',
             isLoading: true
         }
         this.deleteExercise = this.deleteExercise.bind(this);
     }
     componentDidMount(){
+        axios.get('http://localhost:5050/user' ,{
+            headers: {Authorization: sessionStorage.getItem('auth-token')}
+        }).then(response => {
+                        this.setState({
+                            currentUser: response.data._id
+                        });
+
         axios.get('http://localhost:5050/exercise',{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(res => 
@@ -19,9 +27,14 @@ class ExerciseList extends React.Component{
                     exercises : res.data,
                     isLoading : false
                 })).catch(err => console.log(err));
+         
+        
+        })
     }
     deleteExercise(id){
-        axios.delete('http://localhost:5050/exercise/delete/' + id).then(res => 
+        axios.delete('http://localhost:5050/exercise/delete/' + id,{
+            headers: {Authorization: sessionStorage.getItem('auth-token')}
+        }).then(res => 
                     console.log(res));
         this.setState({
             exercises: this.state.exercises.filter(x => x._id !== id)
@@ -29,7 +42,7 @@ class ExerciseList extends React.Component{
     }
     displayList(){
         return this.state.exercises.map(currentexercise => {
-            return <Exercise key={currentexercise._id} exercise={currentexercise} deleteExercise={this.deleteExercise} />});
+            return <Exercise key={currentexercise._id} user_id={this.state.currentUser} exercise={currentexercise} deleteExercise={this.deleteExercise} />});
     }
     render(){
         return(

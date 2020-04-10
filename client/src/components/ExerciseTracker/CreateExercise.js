@@ -12,7 +12,9 @@ class CreateExercise extends React.Component{
             description: '',
             duration: '' ,
             date: new Date(),
-            user : [],
+            userId: '',
+            errorMessage: '',
+            // user : [],
             isSubmit: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -21,31 +23,32 @@ class CreateExercise extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        console.log('Aoyh-----token:'+ sessionStorage.getItem('auth-token'));
-        axios.get('http://localhost:5050/user',{
+        axios.get('http://localhost:5050/user' ,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
-                   if(response.data.length > 0){
                         this.setState({
-                            user: response.data.map(u => u.username)
+                            username: response.data.username,
+                            userId : response.data._id
                         });
-                   } 
         })
         
     }
     handleChange(event){
         const { type,name, value} = event.target;
         (type==="number")? this.setState({
-            [name] : Number(value)
+            [name] : Number(value),
+            errorMessage : ''
         }) 
         :
         this.setState({
-                [name] : value
+                [name] : value,
+                errorMessage : ''
             });
     }
     handleDateChange(date){
          this.setState({
-            date : date
+            date : date,
+            errorMessage : ''
         });
     }
     handleSubmit(event){
@@ -54,45 +57,55 @@ class CreateExercise extends React.Component{
             username: this.state.username,
             description: this.state.description,
             duration: this.state.duration ,
-            date: this.state.date
+            date: this.state.date,
+            user_id: this.state.userId
         };
         console.log(exercise);
-        axios.post('http://localhost:5050/exercise/add', exercise).then(response => {
+        axios.post('http://localhost:5050/exercise/add', exercise,{
+            headers: {Authorization: sessionStorage.getItem('auth-token')}
+        }).then(response => {
             console.log(response.data);
             this.setState({
                 isSubmit: true  
             });
+        }).catch(e => {
+            this.setState({ errorMessage : e.response.data.message });
         });
         
     }
     render(){
-        if (this.state.isSubmit) return <Redirect to='/' />;
+        if (this.state.isSubmit) return <Redirect to='/exercises' />;
         return(
             <div>
             <Navbar /> <br />
+            <p style={{width: '40%' ,marginLeft: '350px',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+           
             <form onSubmit={this.handleSubmit}>  
                 <h2>Create Exercise Log</h2>
+                <br />
                 <div className="form-group">
                 <label>User  Name: </label>
-                    <select required className='form-control' name='username' onChange={this.handleChange}>
+                    {/* <select required className='form-control' name='username' onChange={this.handleChange}>
                         <option>---Select Value---</option>
                         {this.state.user.map(x => <option key ={x} value={x}>{x}</option>)}
-                    </select>
+                    </select> */}
+                    <span className='form-control' style={{backgroundColor: '#e9ecef',opacity: '1'}}>{this.state.username}</span>
+                     {/* <input type='text' disabled className='form-control' name='username' value={this.state.username} onChange={this.handleChange}/> */}
                 </div>
                 <div className="form-group">
                     <label>Description: </label>
-                    <input type='text' required className='form-control' name='description' value={this.state.description} onChange={this.handleChange}/>
+                    <input type='text' required className='form-control' name='description' value={this.state.description} onChange={this.handleChange} placeholder='ex. run, walk or bike'/>
                 </div>
                 <div className="form-group">
                     <label>Duration(in minutes): </label>
-                    <input type='number' className='form-control' name='duration' value={this.state.duration}  onChange={this.handleChange} />
+                    <input type='number' required className='form-control' name='duration' value={this.state.duration}  onChange={this.handleChange} placeholder='ex. 5 or 10'/>
                 </div>
                 <div className="form-group">
                     <label>Date: </label> <br />
                     <DatePicker className='form-control' selected={this.state.date} onChange={this.handleDateChange} />
                 </div>
                 <div className="form-group">
-                    <button className='btn btn-primary'>Create!</button>
+                    <button className='btn btn-dark'>Create!</button>
                 </div>
             </form>
             </div>

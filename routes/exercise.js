@@ -2,7 +2,7 @@ const express = require('express');
 const Exercise = require('../models/Exercise');
 const router = express.Router();
 const verifyToken = require('./verifyToken');
-
+const {exerciseValidations} = require('./validations');
 
 router.get('/', verifyToken, async (req, res) => {
     try{
@@ -13,12 +13,19 @@ router.get('/', verifyToken, async (req, res) => {
     }   
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
+
+    //Validate through JOI
+    const {error} = exerciseValidations(req.body);
+    if(error) return res.status(400).json({message:error.details[0].message});
+
+
     const user = new Exercise({
         username : req.body.username,
         description: req.body.description,
         duration: Number(req.body.duration),
-        date : Date.parse(req.body.date)
+        date : Date.parse(req.body.date),
+        user_id : req.body.user_id
     });
     try{
         const exerciseSaved = await user.save();
@@ -29,7 +36,7 @@ router.post('/add', async (req, res) => {
 });
 
 //Get specific exercise
-router.get('/:exerciseId', async (req, res) => {
+router.get('/:exerciseId', verifyToken, async (req, res) => {
     try{
         const specificExercise = await Exercise.findById(req.params.exerciseId);
         res.json(specificExercise);
@@ -39,7 +46,7 @@ router.get('/:exerciseId', async (req, res) => {
 });
 
 //Delete a exercise
-router.delete('/delete/:exerciseId', async (req, res) => {
+router.delete('/delete/:exerciseId', verifyToken, async (req, res) => {
     try{
         const deletePost = await Exercise.deleteOne({ _id :req.params.exerciseId});
         res.json(deletePost);
@@ -49,7 +56,11 @@ router.delete('/delete/:exerciseId', async (req, res) => {
 });
 
 //update a exercise
-router.patch('/update/:exerciseId', async (req, res) => {
+router.patch('/update/:exerciseId', verifyToken, async (req, res) => {
+    //Validate through JOI
+    const {error} = exerciseValidations(req.body);
+    if(error) return res.status(400).json({message:error.details[0].message});
+
     try{
         const updatePost = await Exercise.update({_id : req.params.exerciseId},
                                                 {

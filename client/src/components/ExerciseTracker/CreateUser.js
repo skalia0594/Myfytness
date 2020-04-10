@@ -9,6 +9,7 @@ class CreateUser extends React.Component{
             username : '',
             email: '',
             password: '',
+            errorMessage: '',
             isUserCreated: false,
             autoLoggedIn:false
         }
@@ -20,7 +21,8 @@ class CreateUser extends React.Component{
     handleChange(event){
         const { name, value} = event.target;
         this.setState({
-                [name] : value
+                [name] : value,
+                errorMessage :''
             });
     }
     
@@ -39,7 +41,7 @@ class CreateUser extends React.Component{
             });
         }).catch(e => {
             console.log(e.response.data.message);
-            this.setState({ password:'' });
+            this.setState({ password:'', errorMessage : e.response.data.message });
         });
 
     }
@@ -68,9 +70,11 @@ class CreateUser extends React.Component{
         return(
             <div>
             <Navbar signOut={this.logout}/> <br />
+            <p style={{width: '40%' ,marginLeft: '350px',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+           
             <form onSubmit={this.handleSubmit}>  
             <h2>Create User</h2>
-            
+            <br />
             <div className="form-group">
                 <label>Username: </label>
                 <input type='text' required className='form-control' name='username' value={this.state.username} onChange={this.handleChange}/>
@@ -85,7 +89,7 @@ class CreateUser extends React.Component{
             </div>
             
             <div className="form-group">
-                <button className='btn btn-primary'>Create!</button>
+                <button className='btn btn-dark'>Create!</button>
             </div>
             <Link to='/'>Have Account?</Link>
         </form>
