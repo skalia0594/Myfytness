@@ -24,6 +24,10 @@ function App(){
                     <Route path='/user' component={CreateUser} />
                     
                 </Switch>
+                <div className="container navbar bg-dark fixed-bottom" style={{ color: "white"}}>
+                    <span>Maintained By: Shubham Kalia</span>
+                    <span>Contact: kaliashubham12@gmail.com</span>
+                </div> 
                 </div>
             </div>    
         </Router>
