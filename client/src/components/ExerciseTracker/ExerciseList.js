@@ -47,7 +47,7 @@ class ExerciseList extends React.Component{
     render(){
         return(
             <div>
-                <Navbar /> <br />
+                <Navbar /> <br /> <section className="landing">
                 <h2>Logged Exercises</h2> 
             <table className="table"> 
             <thead className="thead-light">  
@@ -63,7 +63,7 @@ class ExerciseList extends React.Component{
                     {!this.state.isLoading && this.displayList()}    
             </tbody> 
             </table>
-
+            </section>
             </div>
         );
     }

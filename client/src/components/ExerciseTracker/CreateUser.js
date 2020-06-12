@@ -69,7 +69,7 @@ class CreateUser extends React.Component{
         if(!this.state.isUserCreated && !this.state.autoLoggedIn) this.logout = true;
         return(
             <div>
-            <Navbar signOut={this.logout}/> <br />
+            <Navbar signOut={this.logout}/> <br /> <section className="landing">
             <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
            
             <form onSubmit={this.handleSubmit}>  
@@ -93,6 +93,7 @@ class CreateUser extends React.Component{
             </div>
             <Link to='/'>Have Account?</Link>
         </form>
+        </section>
         </div>
         );
     }

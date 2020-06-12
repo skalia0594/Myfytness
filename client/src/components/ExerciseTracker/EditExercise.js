@@ -89,7 +89,7 @@ class EditExercise extends React.Component{
         if (this.state.isEdit) return <Redirect to='/exercises' />;
         return(
             <div>
-            <Navbar /> <br />
+            <Navbar /> <br /> <section className="landing">
             <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
            
             <form onSubmit={this.handleSubmit}>  
@@ -121,7 +121,9 @@ class EditExercise extends React.Component{
                     <button className='btn btn-dark'>Edit!</button>
                 </div>
             </form>
+            </section>
             </div>
+
         );
     }
 }

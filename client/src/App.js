@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 // import Navbar from './components/ExerciseTracker/Navbar';
 import ExerciseList from './components/ExerciseTracker/ExerciseList';
@@ -11,11 +11,7 @@ import UserLogin from './components/ExerciseTracker/UserLogin';
 // import About from './components/ExerciseTracker/About'
 function App(){
     return(
-        // <h1>Hello</h1>
         <Router>
-            <div>
-                <div className="container">
-                    
                 <Switch>
                     <Route path='/' exact component={UserLogin} />
                     <Route path='/exercises' component={ExerciseList} />
@@ -24,12 +20,10 @@ function App(){
                     <Route path='/user' component={CreateUser} />
                     
                 </Switch>
-                <div className="container navbar bg-dark fixed-bottom" style={{ color: "white"}}>
+                <div className="footer">
                     <span>Maintained By: Shubham Kalia</span>
                     <span>Contact: kaliashubham12@gmail.com</span>
-                </div> 
-                </div>
-            </div>    
+                </div>   
         </Router>
     );
 }

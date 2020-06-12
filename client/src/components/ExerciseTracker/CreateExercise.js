@@ -77,7 +77,7 @@ class CreateExercise extends React.Component{
         if (this.state.isSubmit) return <Redirect to='/exercises' />;
         return(
             <div>
-            <Navbar /> <br />
+            <Navbar /> <br /> <section className="landing">
             <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
            
             <form onSubmit={this.handleSubmit}>  
@@ -108,6 +108,7 @@ class CreateExercise extends React.Component{
                     <button className='btn btn-dark'>Create!</button>
                 </div>
             </form>
+            </section>
             </div>
         );
     }

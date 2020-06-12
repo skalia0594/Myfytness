@@ -51,7 +51,7 @@ class UserLogin extends React.Component{
         else this.logout = true
         return( 
             <div>
-            <Navbar signOut={this.logout}/> <br />
+            <Navbar signOut={this.logout}/> <br /> <section className="landing">
             
             <form onSubmit={this.handleSubmit} className='form-horizontal'>  
             <h2>Login</h2> <br />
@@ -75,6 +75,7 @@ class UserLogin extends React.Component{
             <Link to='/user'>Don't have Account?</Link>
         
         </form>
+        </section>
         </div>
         );
     }
