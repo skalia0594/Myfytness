@@ -61,7 +61,7 @@ class Navbar extends React.Component{
             <nav className="navbar">
                 <div className="brand-title">My fitness</div>
 
-                <div onClick={handleHamburgerClick} class="toggle-button">
+                <div onClick={this.handleHamburgerClick} class="toggle-button">
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
