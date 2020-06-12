@@ -73,7 +73,7 @@ class Navbar extends React.Component{
                     { this.state.session && <li onClick={this.handleHamburgerClick && this.logOut}><Link to='/'>Sign Out</Link></li>}
                 </ul>
                 </div>
-                { this.state.session && <div style={{marginLeft: 'auto', color: '#fff'}}>Welcome {this.state.username}</div> }
+                { this.state.session && <div style={{marginLeft: '100px', color: '#fff'}}>Welcome {this.state.username}</div> }
                             
             </nav>
          );
