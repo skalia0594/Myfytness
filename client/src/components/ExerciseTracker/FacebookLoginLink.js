@@ -18,7 +18,7 @@ class FacebookLoginLink extends Component {
                 authId: response.id,
                 username: response.name
             }
-            axios.post('/user/authlogin', user).then(res => {
+            axios.post('/user/fbauthlogin', user).then(res => {
                 // console.log(res.data);
                 sessionStorage.setItem('auth-token',res.data);
                 this.setState({
@@ -34,12 +34,12 @@ class FacebookLoginLink extends Component {
         let fbContent;
         if(this.state.isLoggedIn) {
             fbContent = (
-                <Redirect from='/' to ='/exercises' />
+                <Redirect from='/' to ='/create' />
             );
         }else {
             fbContent = (<FacebookLogin
             appId="723472581753018"
-            autoLoad={true}
+            autoLoad={false}
             fields="name,email,picture"
             onClick={this.componentClicked}
             callback={this.responseFacebook} />)

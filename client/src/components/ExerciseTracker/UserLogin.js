@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Redirect,Link } from 'react-router-dom';
 import Navbar from './Navbar'
 import FacebookLoginLink from './FacebookLoginLink';
+import GoogleLoginLink from './GoogleLoginLink'
 class UserLogin extends React.Component{
     constructor(props){
         super(props);
@@ -48,7 +49,7 @@ class UserLogin extends React.Component{
         });
     }
     render(){
-        if(this.state.isLogin) return <Redirect from='/' to ='/exercises' />;
+        if(this.state.isLogin) return <Redirect from='/' to ='/create' />;
         else this.logout = true
         return( 
             <div>
@@ -80,6 +81,7 @@ class UserLogin extends React.Component{
                 </div>    
                 <div className="auth-login">
                     <FacebookLoginLink />
+                    <GoogleLoginLink />
                 </div>
             </div>
         

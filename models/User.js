@@ -20,7 +20,13 @@ const user = mongoose.Schema({
         minlength : 6,
         trim : true
     },
-    authId : {
+    fbAuthId : {
+        type : String,
+        // required : true,
+        minlength : 3,
+        trim : true
+    },
+    googleAuthId : {
         type : String,
         // required : true,
         minlength : 3,
