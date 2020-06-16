@@ -60,11 +60,11 @@ class CreateExercise extends React.Component{
             date: this.state.date,
             user_id: this.state.userId
         };
-        console.log(exercise);
+        // console.log(exercise);
         axios.post('/exercise/add', exercise,{
             headers: {Authorization: sessionStorage.getItem('auth-token')}
         }).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             this.setState({
                 isSubmit: true  
             });

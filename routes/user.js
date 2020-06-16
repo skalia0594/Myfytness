@@ -61,4 +61,30 @@ router.post('/login', async (req,res) => {
     // res.send('Logged In!');
 })
 
+router.post('/authlogin', async (req, res) => {
+    const user = await User.findOne({email : req.body.email});
+    let userID;
+    //Add user
+    if(!user) {
+        const newUser = new User({
+            username : req.body.username,
+            email : req.body.email,
+            authId : req.body.authId
+        });
+        try{
+            const userSaved = await newUser.save();
+            userID = userSaved._id;
+        }catch(err){
+            res.status(400).send(err.errmsg);
+        }
+    }else {
+        if(user.authId !== req.body.authId) return res.status('400').send('Invalid authentication.');
+        userID = user._id;
+    }
+
+    const token = jsonWebToken.sign({_id : userID},process.env.SECRET_TOKEN);
+    res.send(token);
+
+})
+
 module.exports = router

@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Redirect,Link } from 'react-router-dom';
 import Navbar from './Navbar'
+import FacebookLoginLink from './FacebookLoginLink';
 class UserLogin extends React.Component{
     constructor(props){
         super(props);
@@ -32,7 +33,7 @@ class UserLogin extends React.Component{
         };
         // console.log(user);
         axios.post('/user/login', user).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             sessionStorage.setItem('auth-token',res.data);
             this.setState({
                 isLogin : !this.state.isLogin 
@@ -52,29 +53,36 @@ class UserLogin extends React.Component{
         return( 
             <div>
             <Navbar signOut={this.logout}/> <br /> <section className="landing">
-            
-            <form onSubmit={this.handleSubmit} className='form-horizontal'>  
-            <h2>Login</h2> <br />
-            <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
-            <div className="form-group">
-                <label className="control-label" htmlFor="email">Email: </label>
-                <input type='email' required className='form-control' id='email' name='email' value={this.state.email} onChange={this.handleChange}/>
-            </div>
-            
-            <div className="form-group">
-                <label className="control-label" htmlFor="pwd">Password: </label>
-                <input type='password' required id='pwd' className='form-control' name='password' value={this.state.password} onChange={this.handleChange}/>
-            </div>
-            
-            <div className="form-group">
-                <div className="col-sm-offset-2">
-                    <button className='btn btn-dark'>Login!</button>
+            <div className="login-page">
+                <div className="login-form">
+                    <form onSubmit={this.handleSubmit} className='form-horizontal'>  
+                    <h2>Login</h2> <br />
+                    <p style={{width: '40%',backgroundColor: 'chocolate',textAlign: 'center'}}>{this.state.errorMessage}</p>
+                    <div className="form-group">
+                        <label className="control-label" htmlFor="email">Email: </label>
+                        <input type='email' required className='form-control' id='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className="control-label" htmlFor="pwd">Password: </label>
+                        <input type='password' required id='pwd' className='form-control' name='password' value={this.state.password} onChange={this.handleChange}/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <div className="col-sm-offset-2">
+                            <button className='btn btn-dark'>Login!</button>
+                        </div>    
+                    </div>
+                    
+                    <Link to='/user'>Don't have Account?</Link>
+                
+                    </form>
                 </div>    
+                <div className="auth-login">
+                    <FacebookLoginLink />
+                </div>
             </div>
-            
-            <Link to='/user'>Don't have Account?</Link>
         
-        </form>
         </section>
         </div>
         );

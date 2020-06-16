@@ -74,7 +74,25 @@ border-radius: 10px;
 .landing {
 margin: 0px 100px;
 }
-
+.login-page {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.login-form {
+    height: 376px;
+    width: 496px;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+.auth-login {
+    display: flex;
+    height: 376px;
+    width: 496px;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+}
 .footer {
 display: flex;
 height: 5vh;

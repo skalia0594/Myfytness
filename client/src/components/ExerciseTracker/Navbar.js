@@ -19,7 +19,7 @@ class Navbar extends React.Component{
             axios.get('/user',{
                 headers: {Authorization: sessionStorage.getItem('auth-token')}
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     session: true ,
                     username : res.data.username
@@ -61,7 +61,7 @@ class Navbar extends React.Component{
             <nav className="navbar">
                 <div className="brand-title">My fitness</div>
 
-                <div onClick={this.handleHamburgerClick} class="toggle-button">
+                <div onClick={this.handleHamburgerClick} className="toggle-button">
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
